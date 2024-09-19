@@ -1,0 +1,290 @@
+/* Warna dominan */
+:root {
+    --primary-color: #222831;
+    --secondary-color: #393E46;
+    --accent-color: #00ADB5;
+    --light-color: #EEEEEE;
+    --primary-dark: #1b1f24;
+    --secondary-dark: #2e3338;
+    --accent-dark: #008a92;
+}
+
+/* Gaya umum */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease;
+}
+
+h1,
+h2 {
+    color: var(--accent-color);
+    transition: color 0.3s ease;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: var(--accent-dark);
+}
+
+button {
+    background-color: var(--accent-color);
+    color: var(--light-color);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--accent-dark);
+    transform: scale(1.05);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px var(--accent-color);
+}
+
+/* Gaya untuk Dashboard */
+.dashboard-container {
+    padding: 20px;
+}
+
+.dashboard-container h1 {
+    margin-bottom: 20px;
+}
+
+.dashboard-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dashboard-container li {
+    margin: 10px 0;
+}
+
+/* Gaya untuk AdminMobil */
+.admin-mobil-container {
+    padding: 20px;
+}
+
+.admin-mobil-container .form-container {
+    margin-bottom: 20px;
+}
+
+.admin-mobil-container input {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid var(--secondary-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-mobil-container input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 5px var(--accent-color);
+    outline: none;
+}
+
+.admin-mobil-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-mobil-container th,
+.admin-mobil-container td {
+    border: 1px solid var(--secondary-color);
+    padding: 10px;
+    text-align: left;
+    transition: background-color 0.3s ease;
+}
+
+.admin-mobil-container th {
+    background-color: var(--secondary-color);
+}
+
+.admin-mobil-container td {
+    background-color: var(--primary-color);
+}
+
+.admin-mobil-container td:hover {
+    background-color: var(--primary-dark);
+}
+
+.admin-mobil-container .action-buttons button {
+    margin-right: 10px;
+}
+
+/* Gaya untuk KatalogMobil */
+.katalog-container {
+    padding: 20px;
+}
+
+.katalog-title {
+    margin-bottom: 20px;
+}
+
+.filter-container {
+    margin-bottom: 20px;
+}
+
+.filter-input {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid var(--secondary-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 5px var(--accent-color);
+    outline: none;
+}
+
+.mobil-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.mobil-card {
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: 10px;
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.mobil-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px var(--accent-color);
+    background-color: var(--secondary-dark);
+}
+
+.mobil-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.mobil-info {
+    margin-top: 10px;
+}
+
+.mobil-title {
+    margin: 0;
+}
+
+.mobil-detail,
+.mobil-price {
+    margin: 5px 0;
+}
+
+/* Gaya untuk Login */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-form {
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.login-form:hover {
+    box-shadow: 0 0 10px var(--accent-color);
+    background-color: var(--secondary-dark);
+}
+
+.login-form h2 {
+    margin-bottom: 20px;
+}
+
+.login-form input {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid var(--secondary-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-form input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 5px var(--accent-color);
+    outline: none;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Gaya untuk PemesananMobil */
+.pemesanan-container {
+    padding: 20px;
+}
+
+.pemesanan-container h2 {
+    margin-bottom: 20px;
+}
+
+.pemesanan-container form {
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.pemesanan-container form:hover {
+    box-shadow: 0 0 10px var(--accent-color);
+    background-color: var(--secondary-dark);
+}
+
+.pemesanan-container input {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid var(--secondary-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pemesanan-container input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 5px var(--accent-color);
+    outline: none;
+}
+
+.pemesanan-container button {
+    margin-top: 20px;
+}
