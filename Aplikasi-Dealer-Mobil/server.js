@@ -196,6 +196,50 @@ app.delete('/mobil/:id', verifyToken, async (req, res) => {
   }
 });
 
+// Mendapatkan laporan penjualan (hanya untuk Admin)
+app.get('/laporanpenjualan', verifyToken, async (req, res) => {
+  if (req.userRole !== 'Admin') {
+    return res.status(403).json({ message: 'Access denied' });
+  }
+
+  const { tanggalMulai, tanggalSelesai } = req.query;
+
+  // Log tanggalMulai dan tanggalSelesai untuk debugging
+  console.log('Tanggal Mulai:', tanggalMulai);
+  console.log('Tanggal Selesai:', tanggalSelesai);
+
+  if (!tanggalMulai || !tanggalSelesai) {
+    return res.status(400).json({ message: 'Tanggal mulai dan selesai harus diisi' });
+  }
+
+  try {
+    const [penjualan] = await db.query(`
+      SELECT 
+        p.ID_Pesanan,
+        p.Nama_Pelanggan,
+        m.Nama_Mobil,
+        p.Tanggal_Pemesanan,
+        p.Status_Pemesanan,
+        m.Harga
+      FROM Pesanan p
+      JOIN Mobil m ON p.ID_Mobil = m.ID_Mobil
+      WHERE p.Tanggal_Pemesanan BETWEEN ? AND ?`, [tanggalMulai, tanggalSelesai]);
+
+    console.log('Data penjualan:', penjualan);
+
+    const totalMobilTerjual = penjualan.length;
+    const totalPendapatan = penjualan.reduce((total, pesanan) => total + parseFloat(pesanan.Harga), 0);
+
+    res.json({
+      totalMobilTerjual,
+      totalPendapatan,
+      rincianPenjualan: penjualan
+    });
+  } catch (err) {
+    console.error('Error saat mengambil laporan penjualan:', err);
+    return res.status(500).json({ message: 'Database query error' });
+  }
+});
 
 // Menjalankan server
 const PORT = 5000;

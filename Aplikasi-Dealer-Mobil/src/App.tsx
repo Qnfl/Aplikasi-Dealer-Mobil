@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import AdminComponent from './components/AdminComponent'; // Import komponen AdminComponent
 import AdminMobil from './components/AdminMobil'; // Import komponen AdminMobil
 import KatalogMobil from './components/KatalogMobil'; // Import komponen KatalogMobil
 import PemesananMobil from './components/PemesananMobil'; // Import komponen PemesananMobil
@@ -20,13 +19,13 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <Dashboard /> {/* Pindahkan navbar ke sini agar tetap di atas */}
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
 
           {/* Route untuk admin, jika role bukan Admin, redirect ke /dashboard */}
-          <Route path="/admin" element={role === 'Admin' ? <AdminComponent /> : <Navigate to="/dashboard" />} />
           
           {/* Route untuk manajemen mobil admin */}
           <Route path="/admin/mobil" element={role === 'Admin' ? <AdminMobil /> : <Navigate to="/dashboard" />} />

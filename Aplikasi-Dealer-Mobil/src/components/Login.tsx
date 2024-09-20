@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';  // Untuk navigasi setelah login
 
 const Login: React.FC = () => {
@@ -10,14 +10,31 @@ const Login: React.FC = () => {
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setError(''); // Reset error state
+
         try {
             const response = await axios.post('http://localhost:5000/login', { username, password });
-            const { token, role } = response.data;  // Ambil role dari response
-            localStorage.setItem('token', token);
-            localStorage.setItem('role', role);  // Simpan role di localStorage
-            navigate('/dashboard');  // Redirect ke dashboard setelah login berhasil
+            console.log('Response:', response); // Log response for debugging
+
+            if (response.status === 200) {
+                const { token, role } = response.data;  // Ambil role dari response
+                localStorage.setItem('token', token);
+                localStorage.setItem('role', role);  // Simpan role di localStorage
+                navigate('/dashboard');  // Redirect ke dashboard setelah login berhasil
+            } else {
+                setError('Login failed: Invalid username or password');
+            }
         } catch (err) {
-            setError('Login failed: Invalid username or password');
+            console.error('Error:', err); // Log error for debugging
+            if (axios.isAxiosError(err)) {
+                if (err.response && err.response.status === 401) {
+                    setError('Login failed: Invalid username or password');
+                } else {
+                    setError('Login failed: Something went wrong. Please try again.');
+                }
+            } else {
+                setError('Login failed: An unexpected error occurred.');
+            }
         }
     };  
 

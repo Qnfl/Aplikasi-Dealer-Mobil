@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'; // Import useLocation
 
 const PemesananMobil: React.FC = () => {
   const [idMobil, setIdMobil] = useState(''); // Menggunakan ID Mobil
@@ -9,6 +10,15 @@ const PemesananMobil: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation(); // Inisialisasi useLocation
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    if (id) {
+      setIdMobil(id); // Set ID mobil dari query parameter
+    }
+  }, [location]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,43 +48,47 @@ const PemesananMobil: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Form Pemesanan Mobil</h2>
-      {success ? (
-        <p>Pemesanan berhasil! Anda akan diarahkan kembali ke katalog.</p>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>ID Mobil:</label>
-            <input 
-              type="text" 
-              value={idMobil} 
-              onChange={(e) => setIdMobil(e.target.value)} 
-              required 
-            />
-          </div>
-          <div>
-            <label>Nama Pelanggan:</label>
-            <input 
-              type="text" 
-              value={namaPelanggan} 
-              onChange={(e) => setNamaPelanggan(e.target.value)} 
-              required 
-            />
-          </div>
-          <div>
-            <label>Alamat Pengiriman:</label>
-            <input 
-              type="text" 
-              value={alamat} 
-              onChange={(e) => setAlamat(e.target.value)} 
-              required 
-            />
-          </div>
-          <button type="submit">Pesan Sekarang</button>
-        </form>
-      )}
-      {error && <p>{error}</p>}
+    <div className="pemesanan-container">
+      <form onSubmit={handleSubmit} className="pemesanan-form">
+        <h2>Form Pemesanan Mobil</h2>
+        {success ? (
+          <p>Pemesanan berhasil! Anda akan diarahkan kembali ke katalog.</p>
+        ) : (
+          <>
+            <div>
+              <label>ID Mobil:</label>
+              <input 
+                type="text" 
+                value={idMobil} 
+                onChange={(e) => setIdMobil(e.target.value)} 
+                required 
+              />
+            </div>
+            <div>
+              <label>Nama Pelanggan:</label>
+              <input 
+                type="text" 
+                value={namaPelanggan} 
+                onChange={(e) => setNamaPelanggan(e.target.value)} 
+                required 
+              />
+            </div>
+            <div>
+              <label>Alamat Pengiriman:</label>
+              <input 
+                type="text" 
+                value={alamat} 
+                onChange={(e) => setAlamat(e.target.value)} 
+                required 
+              />
+            </div>
+            <div className="button-container">
+              <button type="submit">Pesan Sekarang</button>
+            </div>
+          </>
+        )}
+        {error && <p>{error}</p>}
+      </form>
     </div>
   );
 };
